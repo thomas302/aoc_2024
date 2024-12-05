@@ -46,11 +46,11 @@ def checkDampener(x):
 
     return False
 start = timeit.default_timer()
-for i in range(10000):
-    out_2 = filter(checkDampener, data.copy())
+#for i in range(10000):
+out_2 = list(filter(checkDampener, data.copy()))
 time = timeit.default_timer() - start
 
 print(time)
-print(len(list(out_2)))
+print(len(out_2))
 
 print("iterations", count)
