@@ -7,15 +7,14 @@ data = [
         [1,3,6,7,9]
         ]
 
-'''
+data = []
 with open("input", 'r+') as f:
     l = f.readlines()
 
     for i in l:
         data.append([int(x) for x in i.split(" ")])
-'''
 
-print(data)
+#print(data)
 
 def checkVals(x:list)->bool:
     y = x.copy();

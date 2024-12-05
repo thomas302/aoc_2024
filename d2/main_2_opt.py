@@ -1,3 +1,4 @@
+import timeit
 data = []
 
 with open("input", 'r+') as f:
@@ -36,9 +37,6 @@ def checkVals(x:list)->bool:
     return True
 
 def checkDampener(x):
-    if checkVals(x):
-        return True
-
     for i in range(len(x)):
         y = x.copy()
         
@@ -47,9 +45,12 @@ def checkDampener(x):
             return True
 
     return False
+start = timeit.default_timer()
+for i in range(10000):
+    out_2 = filter(checkDampener, data.copy())
+time = timeit.default_timer() - start
 
-out_2 = filter(checkDampener, data)
-
+print(time)
 print(len(list(out_2)))
 
 print("iterations", count)
