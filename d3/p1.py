@@ -6,30 +6,6 @@ who()+from()where()mul(878,982)]~mul(812,80)?select()don't()how()];mul(986,548)/
 *what()}[*how()?why()mul(386,104)[from()];mul(208,918))){(+<how(),:how()mul(694,384)@!-*{mul(69,248)?',what(), ^<;mul(902,984)*mul(369,924)^?^mul(594,537)>@,when(),mul(922,47)@mulwhy()-mul(890,397)-^/+'select()[&!who()mul(547,6)-]>:^;mul(870,938),~?[%mul(8,689!>*@!]mul(311,244)->how()$when()'}mul(213,766)$:!+ mul(620,644)%where()mul(430,127)%{[mul(682,585)mul(245,26)don't()mul(510,688)where()]-mul(844,443)/@+who()?who()when()mul(453,182)mul(928,131)<select()who()(]mul(422,986)[&&who()[how()$mul(54,860)!]{;mul(549,103)<%;mul(807,173)/mul(513,515)@mul(852,657)'#when(293,457)$&+why()mul(694,888)*why()mul(912,542)$$!:$mul(776,404^$$}&(mul(965,836)-what()*:]mul(97,471)/*~]what(){[what()mul(241,843)where()[^mul(639,208'}(- who()how()mul(869,533)how()who()what()select()%don't() where()(why(811,325)!<where()^~;mul(955,806)][)])+,% mul(207,798):&who(),<where() how()mul(857,424::,]mul(250,416)select()'{mul(815,806)[)/@mul(285,41)$mul(901,755)from()!)?why()){!mul(78>?&'{[+@?,mul(55,18)mul(795,739):}what())@$]'mul(377,34)&,~*why()<do()<mul(795,39)where()$%+?>/@who()mul(467,127))&how(28,925)mul(955,519)}where(830,382)$when()[-why()/+mul(310,139)mul(217,931)!mul(574,122)!mul(227,82)where()mul(940,851) {mul(545,758)<select()?[mul(720,337)mul(52,940)~how()from(855,795)*mul(664,962)>:from()%~/mul(937,897)mul(665,919)^&/  &what()mul(23,37),select()%*mul(98,952);mul(171,967)who()$+]when()%$mul(426,870)<<;;why()[do()@mul(28,286)-what()([+select()why()do()<^+what()^?~-mul(246,992)/mul(938,936)'$>when()mul(18,736)%?how()-what()from() <do()mul(994,498);<,how(800,873)[%/&mul(260,162)why()]when())(what()}#don't() mul(99,24)(*!@]]mul(490,150)~mul(47,794)$#}where()(who(){what():mul(369,830)mul(24,75)where():(,@)]$~mul(509,783)mul(914,160)+mul(619,799)&@~how()from()mul(445,64)*>when()select()mul(37,387)}<[}?+how()#&?mul(779,369)select()mul(750,510)%[,'from()>who()mul(13,97)what(547,477)why(859,962)?,where()mul(806,879)mul(577,179)#from()+>where(705,292)what(712,121))when(227,970)*mul(942,336)& who())!<mul(345,567)/-select(838,572)-~'*)why()[mul(12,866)@^where()?<mul(985,870)where(503,821);^mul(803,551)'[%#where()-who())mul(38,22)^}$who()?,how()%what(528,476)who()mul(486,865)<(/mul(714,503)%%,$select()]mul(299,58)-when()~why()-}mul(684,388) /^<:[;:don't()why()who()<who()-{mul(413,975),>*mul(992,750):from()<:+-mul(938,672)mul(55,872)mul(354,183)>+(+mul(520,932)#from():}{who()$mul(675,973)@^@%mul(58,468)/select()what()->]mul(343,375)^ ,%mul(480,300)where()(/*$mul(695,676)how()where(),-!:from()mul(363,212)~(!where()-[what()don't()mul(614,594))mul(569,802)'mul(995,471)~&$:^:how()how()-^mul(853,428)-;-%what()(from()+do()'where()() !{^?#mul(376,780)select())where()select()&{-,{,mul(894,646)select()*< @}*[}}mul(332,665)[
 """
 
-l_1 = len("don't()")
-l_2 = len("do()")
-
-d_1 = "don't()"
-d_2 = "do()"
-print(len(x))
-i=0
-print(x.count(d_1))
-print(x.count(d_2))
-#print(x)
-
-for i in range(43):
-    print(i)
-    if(x.find(d_1) == -1): break
-    if(x.find(d_2) == -1): break
-
-    if(x.find(d_2)<x.find(d_1)): break
-    x = x[:x.find(d_1)] + x[x.find(d_2)+l_2:]
-
-print(x.count(d_1))
-print(x.count(d_2))
-        
-print(len(x))
-
 y = x.split("mul(")
 del y[0]
 out = 0
