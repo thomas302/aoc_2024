@@ -34,7 +34,7 @@ for e in data:
     if e == s:
         c+= int(e[len(e)//2].v)
     else:
-        c2+=int(s[len(s)//2].v)
+        c2+=int(s[len(s)//2].v)e
         
 print(c)
 print(c2)
