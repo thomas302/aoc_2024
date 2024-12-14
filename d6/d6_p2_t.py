@@ -1,5 +1,16 @@
 import copy
-with open('input', 'r+') as f:
+_input = '''.........
+.#.......
+........#
+........#
+........#
+........#
+........#
+#...^...#
+.......#.
+'''
+
+with open('input') as f:
     _input = f.read()
 
 _map = _input.split('\n')
@@ -38,7 +49,7 @@ start = get_start(_map)
 print(start)
 
 orig_start = start.copy()
-orig_map = copy.deepcopy(_map)
+orig_map = _map.copy()
 
 while True:
     start, direction, cont, _map = traverse_direction(_map, start, direction)
@@ -56,13 +67,13 @@ for i in range(len(_map)):
 
 print(len(try_positions))
 
-direction = [-1, 0]
+up = [-1, 0]
 
 cnt = 0
 for i in try_positions:
     if i == orig_start:
         continue
-    _map = copy.deepcopy(orig_map)
+    _map = orig_map.copy()
 
     s = _map[i[0]]
 
@@ -70,9 +81,9 @@ for i in try_positions:
     
     posList = list()
 
-    s = copy.deepcopy(orig_start)
+    s = orig_start.copy()
 
-    _dir = copy.deepcopy(direction)
+    _dir = up.copy()
 
     while True:
         s, _dir, cont, _map = traverse_direction(_map, s, _dir)
@@ -90,7 +101,5 @@ for i in try_positions:
             break
         
         posList.append(x)
-
-        
 
 print(cnt)
