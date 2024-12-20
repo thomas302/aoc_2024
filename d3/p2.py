@@ -9,14 +9,12 @@ who()+from()where()mul(878,982)]~mul(812,80)?select()don't()how()];mul(986,548)/
 def getDo(s:str) -> str:
     dont = s.split("don't()")
 
-    print(dont[0])
     out = [dont[0]]
     for val in dont:
         do_index = val.find("do()")
         print(do_index)
         if not do_index == -1:
             out.append(val[do_index:])
-            print(val[do_index:])
     return ''.join(out)
 
 x = getDo(x)
