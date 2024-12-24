@@ -20,10 +20,12 @@ fun main(){
 class Node(val value: Long, val parent: Node? = null) {
     var mulNode: Node? = null
     var addNode: Node? = null
+    var catNode: Node? = null
 
     fun getLevel(): Long {
         if(parent == null)
             return 0L
+        
         return parent?.getLevel() + 1L
     }
 }
@@ -51,10 +53,17 @@ fun addNode(root: Node, value:Long, max:Long){
     if(root.value * value <= max){
         root.mulNode = Node(root.value * value, root)
     }
+    if(concat(root.value, value) <= max){
+        root.catNode = Node(concat(root.value, value), root)
+    }
+}
+
+fun concat(a: Long, b: Long):Long{
+    val c = a.toString() + b.toString()
+    return c.toLong()
 }
 
 fun getNodesAtLevel(root: Node?, level:Long): MutableList<Node>{
-
     var _out = mutableListOf<Node>()
 
     if (root?.getLevel() == level && root != null) {
@@ -68,6 +77,10 @@ fun getNodesAtLevel(root: Node?, level:Long): MutableList<Node>{
 
     if (root?.addNode != null){
         _out.addAll(getNodesAtLevel(root?.addNode, level))
+    }
+
+    if (root?.catNode != null){
+        _out.addAll(getNodesAtLevel(root?.catNode, level))
     }
     return _out
 }
@@ -83,9 +96,7 @@ fun getEntries(filename: String):MutableList<Pair<Long?, MutableList<Long?>>>{
 
 
     var mainList = mutableListOf<Pair<Long?, MutableList<Long?>>>()
-    var c = 0
     for (e in entries){
-        c++
         var v = r_d2.findAll(e.groups[2]?.value ?: "")
 
         var k = e.groups[1]?.value
@@ -96,10 +107,7 @@ fun getEntries(filename: String):MutableList<Pair<Long?, MutableList<Long?>>>{
         for (m in v){
             vals.add(m.value?.toLongOrNull())
         }
-
         mainList.add(Pair(key, vals))
     }
-
-    println(c)
     return mainList
 }
