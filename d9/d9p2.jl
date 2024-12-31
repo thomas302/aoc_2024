@@ -1,4 +1,5 @@
 using Base.Iterators
+using .Threads
 
 function is_numeric(x::String)
     return !isnothing(tryparse(Int,x))
@@ -80,6 +81,31 @@ function find_all_gaps(data)
     return out
 end
 
+function find_first_large_gap(data, min_len::Int)
+    s = 1
+    while s <= length(data)
+        gap_start = findnext(x -> x == "_", data, s)
+        if isnothing(gap_start)
+            return nothing
+        end
+
+        gap_end = findnext(x -> x != "_", data, gap_start)
+
+        if isnothing(gap_end)
+            gap_end = length(data)
+        else
+            gap_end -= 1
+        end
+
+        gap_length = gap_end - gap_start + 1
+        if gap_length >= min_len
+            return (gap_start, gap_end)
+        end
+        s = gap_end + 1
+    end
+    return nothing
+end
+
 function compress_disk_alt(data::Array{diskVal,1})
     seen_id = Set()
     push!(seen_id, "_")
@@ -95,15 +121,17 @@ function compress_disk_alt(data::Array{diskVal,1})
 
         len_vals = findlast(x-> x == data[last_val], data[last_val:-1:1])
 
-        gaps = find_all_gaps(data)
-        gap = findfirst(x->x[2]-x[1]+1 >= len_vals, gaps)
+        #gaps = find_all_gaps(data)
+        #gap = findfirst(x->x[2]-x[1]+1 >= len_vals, gaps)
 
-        if isnothing(gap) || gaps[gap][1] > last_val
+        gap = find_first_large_gap(data, len_vals)
+
+        if isnothing(gap) || gap[1] > last_val
             continue
         end
 
         for i in 0:1:len_vals-1
-           data[gaps[gap][1]+i] = data[last_val-i]
+           data[gap[1]+i] = data[last_val-i]
            data[last_val-i] = "_"
         end
     end
@@ -128,4 +156,4 @@ for (i, v) in enumerate(data)
     push!(temp, diskVal(v[2], nothing))
 end
 
-println(calc_checksum(compress_disk_alt(temp)))
+println(calc_checksum(compress_disk_alt_parallel(temp)))
