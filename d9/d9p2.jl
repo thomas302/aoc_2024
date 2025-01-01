@@ -1,11 +1,11 @@
 using Base.Iterators
 using .Threads
 
-function is_numeric(x::String)
+function is_numeric(x::String)::Bool
     return !isnothing(tryparse(Int,x))
 end
 
-function calc_checksum(data::Array)
+function calc_checksum(data::Array{String,1})::Int
     cnt = 0
     for (i,v) in enumerate(data)
         if is_numeric(v)
@@ -17,26 +17,13 @@ function calc_checksum(data::Array)
     return cnt   
 end
 
-mutable struct diskVal
+struct diskVal
     len::Int
     fileID::Union{Int, Nothing}
 end
 
-function compress_disk(data::Array)
-    while true
-        first_gap = findfirst(x -> "_" == x, data)
-        last_val = findlast(x -> is_numeric(x) , data)
-        if first_gap > last_val
-            break
-        end
-        data[first_gap] = data[last_val]
-        data[last_val] = "_" 
-    end
-    return data
-end
-
-function disk_to_string_arr(data::Array{diskVal,1})
-    str = []
+function disk_to_string_arr(data::Array{diskVal,1})::Array{String,1}
+    str = Array{String,1}()
     for i::diskVal in data
         if !isnothing(i.fileID)
             for j in 1:1:i.len
@@ -51,37 +38,7 @@ function disk_to_string_arr(data::Array{diskVal,1})
     return str
 end
 
-
-function find_gap(data::Array{String, 1}, start::Int)
-    s = findnext(x->"_"==x, data, start)
-    if isnothing(s)
-        return nothing
-    end
-
-    e = findnext(x -> is_numeric(x), data, s)
-    
-    if isnothing(e)
-        return (s,length(data))
-    end
-    return (s,e-1)
-end
-
-function find_all_gaps(data)
-    s = 1
-    out = []
-    while true
-        x = find_gap(data, s)
-        if !isnothing(x)
-            push!(out, x)
-            s = x[2]+1
-        else
-            break
-        end
-    end
-    return out
-end
-
-function find_first_large_gap(data, min_len::Int)
+function find_first_large_gap(data::AbstractVector{String}, min_len::Int)::Union{Tuple{Int,Int},Nothing}
     s = 1
     while s <= length(data)
         gap_start = findnext(x -> x == "_", data, s)
@@ -106,54 +63,53 @@ function find_first_large_gap(data, min_len::Int)
     return nothing
 end
 
-function compress_disk_alt(data::Array{diskVal,1})
-    seen_id = Set()
+function compress_disk_alt(data::Array{diskVal,1})::Array{String,1}
+    seen_id = Set{String}()
     push!(seen_id, "_")
-    data = disk_to_string_arr(data)
+    data_str_arr::Array{String,1} = disk_to_string_arr(data)
     while true
-        last_val =  findlast(x -> !(x in seen_id), data)
+        last_val::Union{Int,Nothing} = findlast(x -> !(x in seen_id), data_str_arr)
 
         if isnothing(last_val)
             break
         end
 
-        push!(seen_id, data[last_val])
+        push!(seen_id, data_str_arr[last_val])
 
-        len_vals = findlast(x-> x == data[last_val], data[last_val:-1:1])
+        len_vals::Union{Int,Nothing} = findlast(x-> x == data_str_arr[last_val], @view data_str_arr[last_val:-1:1])
 
-        #gaps = find_all_gaps(data)
-        #gap = findfirst(x->x[2]-x[1]+1 >= len_vals, gaps)
-
-        gap = find_first_large_gap(data, len_vals)
+        gap::Union{Tuple{Int,Int},Nothing} = find_first_large_gap(data_str_arr, len_vals)
 
         if isnothing(gap) || gap[1] > last_val
             continue
         end
 
         for i in 0:1:len_vals-1
-           data[gap[1]+i] = data[last_val-i]
-           data[last_val-i] = "_"
+           data_str_arr[gap[1]+i] = data_str_arr[last_val-i]
+           data_str_arr[last_val-i] = "_"
         end
     end
-    return data
+    return data_str_arr
 end
 
-f = open("input", "r")
-input = strip(read(f, String))
+function main()
+    f = open("input", "r")
+    input = strip(read(f, String))
 
-println(length(input))
-if length(input)%2 == 1
-    input *= "0"
+    if length(input)%2 == 1
+        input *= "0"
+    end
+
+    total_len::Int = length(input)
+
+    data::Array{Tuple{Int,Int},1} = [(parse(Int, s[1]), parse(Int, s[2])) for s in [t for t in Iterators.partition(input, 2)]]
+
+    temp::Array{diskVal,1} = similar([], diskVal,total_len)
+    for (i, v) in enumerate(data)
+        temp[2 * i - 1] = diskVal(v[1], i-1)
+        temp[2 * i] = diskVal(v[2], nothing)
+    end
+    println(calc_checksum(compress_disk_alt(temp)))
 end
 
-temp = [s for s in Iterators.partition(input, 2)]
-
-data = [(parse(Int, s[1]), parse(Int, s[2])) for s in temp]
-
-temp = empty([diskVal(0, 0)])
-for (i, v) in enumerate(data)
-    push!(temp, diskVal(v[1], i-1))
-    push!(temp, diskVal(v[2], nothing))
-end
-
-println(calc_checksum(compress_disk_alt_parallel(temp)))
+@time "Runtime: " main()
