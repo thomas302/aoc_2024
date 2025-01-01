@@ -105,9 +105,9 @@ function main()
     data::Array{Tuple{Int,Int},1} = [(parse(Int, s[1]), parse(Int, s[2])) for s in [t for t in Iterators.partition(input, 2)]]
 
     temp::Array{diskVal,1} = similar([], diskVal,total_len)
-    for (i, v) in enumerate(data)
-        temp[2 * i - 1] = diskVal(v[1], i-1)
-        temp[2 * i] = diskVal(v[2], nothing)
+    for (i::Int, v::Tuple{Int,Int}) in enumerate(data)
+        temp[2*i-1] = diskVal(v[1], i-1)
+        temp[2*i]   = diskVal(v[2], nothing)
     end
     println(calc_checksum(compress_disk_alt(temp)))
 end
