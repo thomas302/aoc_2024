@@ -1,0 +1,15 @@
+C:\Users\Joel\Desktop\aoc_2024\d10\aoc_d10\bin\Debug\net8.0\aoc_d10.exe
+C:\Users\Joel\Desktop\aoc_2024\d10\aoc_d10\bin\Debug\net8.0\aoc_d10.deps.json
+C:\Users\Joel\Desktop\aoc_2024\d10\aoc_d10\bin\Debug\net8.0\aoc_d10.runtimeconfig.json
+C:\Users\Joel\Desktop\aoc_2024\d10\aoc_d10\bin\Debug\net8.0\aoc_d10.dll
+C:\Users\Joel\Desktop\aoc_2024\d10\aoc_d10\bin\Debug\net8.0\aoc_d10.pdb
+C:\Users\Joel\Desktop\aoc_2024\d10\aoc_d10\obj\Debug\net8.0\aoc_d10.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Joel\Desktop\aoc_2024\d10\aoc_d10\obj\Debug\net8.0\aoc_d10.AssemblyInfoInputs.cache
+C:\Users\Joel\Desktop\aoc_2024\d10\aoc_d10\obj\Debug\net8.0\aoc_d10.AssemblyInfo.cs
+C:\Users\Joel\Desktop\aoc_2024\d10\aoc_d10\obj\Debug\net8.0\aoc_d10.csproj.CoreCompileInputs.cache
+C:\Users\Joel\Desktop\aoc_2024\d10\aoc_d10\obj\Debug\net8.0\aoc_d10.sourcelink.json
+C:\Users\Joel\Desktop\aoc_2024\d10\aoc_d10\obj\Debug\net8.0\aoc_d10.dll
+C:\Users\Joel\Desktop\aoc_2024\d10\aoc_d10\obj\Debug\net8.0\refint\aoc_d10.dll
+C:\Users\Joel\Desktop\aoc_2024\d10\aoc_d10\obj\Debug\net8.0\aoc_d10.pdb
+C:\Users\Joel\Desktop\aoc_2024\d10\aoc_d10\obj\Debug\net8.0\aoc_d10.genruntimeconfig.cache
+C:\Users\Joel\Desktop\aoc_2024\d10\aoc_d10\obj\Debug\net8.0\ref\aoc_d10.dll

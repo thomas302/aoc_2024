@@ -109,6 +109,7 @@ function main()
         temp[2*i-1] = diskVal(v[1], i-1)
         temp[2*i]   = diskVal(v[2], nothing)
     end
+    
     println(calc_checksum(compress_disk_alt(temp)))
 end
 
